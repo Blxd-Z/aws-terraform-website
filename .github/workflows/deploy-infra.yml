@@ -1,1 +1,22 @@
+name: Terraform CD
 
+on:
+  workflow_dispatch: 
+  
+env:
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    
+jobs:
+  CD:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Terraform install
+        uses: hashicorp/setup-terraform@v3 
+      - name: Clonar repositorio en Github actions
+        uses: actions/checkout@v4
+      - name: Desplegar infra en aws
+        run: |
+         cd terraform
+         terraform init
+         terraform apply -auto-approve
