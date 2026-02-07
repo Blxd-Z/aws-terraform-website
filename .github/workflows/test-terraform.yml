@@ -9,6 +9,9 @@ jobs:
     steps:
     - name: Terraform install
       uses: hashicorp/setup-terraform@v3
+
+    - name: Clonar repositorio en Github actions
+      uses: actions/checkout@v4
       
     - name: Inicializar terraform y validar codigo
       run: |
