@@ -53,11 +53,6 @@ resource "aws_security_group" "sg_allow_http" {
     }
 }
 
-resource "aws_key_pair" "parClaves" {
-    key_name = "parClaves"
-    public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP8fsk51rJMm7spbqBzLrQsnCglZaBWrNTKfr8/7Ay4X elixs@NAVE"
-}
-
 resource "aws_instance" "servidor_web" {
     ami = "ami-07ff62358b87c7116" #La imagen id es dependiendo de la region, cada region tiene sus ID's
     instance_type = "t2.micro"
@@ -76,4 +71,5 @@ EOF
         Name = "Servidor Nginx" #Nombre de la instancia EC2
     } 
 }
+
 
