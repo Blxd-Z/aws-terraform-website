@@ -4,14 +4,16 @@ name: Destroy Infra
 on:
   workflow_dispatch: #Permite hacerlo de forma manual, no automática.
   
-env:
-    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     
 jobs:
   destroy:
     runs-on: ubuntu-latest
     steps:
+      - name: Emitir y firmar token OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::151098958427:role/GithubActionsOIDC
+          aws-region: eu-east-1          
       - name: Clonar Repo en la MV
         uses: actions/checkout@v4
 
