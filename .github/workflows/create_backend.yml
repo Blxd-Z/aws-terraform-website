@@ -1,1 +1,32 @@
+name: Create Backend S3 + DynamoDB
 
+on:
+  workflow_dispatch: 
+  
+permissions:
+  id-token: write
+  contents: read
+    
+jobs:
+  CD:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Emitir y firmar token OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::151098958427:role/GithubActionsOIDC
+          aws-region: us-east-1          
+      - name: Terraform install
+        uses: hashicorp/setup-terraform@v3 
+      - name: Clonar repositorio en Github actions
+        uses: actions/checkout@v4
+      - name: Testear infra
+        run: |
+         cd bootstrap
+         terraform init
+         terraform validate
+         terraform plan
+      - name: Desplegar infra en aws
+        run: |
+         cd bootstrap
+         terraform apply -auto-approve
