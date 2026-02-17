@@ -68,7 +68,7 @@ resource "aws_s3_bucket" "website" {
 }
 
 resource "aws_s3_object" "index_html" {
-  bucket = "website-portfolio-ilyass"
+  bucket = aws_s3_bucket.website.id
   key    = "index.html"
   source = "../frontend/index.html"
   content_type = "text/html"
@@ -76,14 +76,14 @@ resource "aws_s3_object" "index_html" {
 }
 
 resource "aws_s3_object" "styles_css" {
-  bucket = "website-portfolio-ilyass"
+  bucket = aws_s3_bucket.website.id
   key    = "styles.css"
   source = "../frontend/styles.css"
   content_type = "text/css"
 }
 
 resource "aws_s3_object" "app_js" {
-  bucket = "website-portfolio-ilyass"
+  bucket = aws_s3_bucket.website.id
   key    = "app.js"
   source = "../frontend/app.js"
   content_type = "application/javascript"
@@ -177,6 +177,7 @@ EOF
         Name = "Servidor Nginx" #Nombre de la instancia EC2
     } 
 }
+
 
 
 
