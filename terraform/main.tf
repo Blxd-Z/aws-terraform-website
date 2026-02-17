@@ -67,14 +67,26 @@ resource "aws_s3_bucket" "website" {
   }
 }
 
-resource "aws_s3_object" "objects" { 
-  for_each = fileset("${path.module}/../frontend/", "*")
-
-  bucket = aws_s3_bucket.website.id
-  key    = each.value
-  source = "${path.module}/../frontend/${each.value}"
-  etag   = filemd5("${path.module}/../frontend/${each.value}")
+resource "aws_s3_object" "index.html" {
+  bucket = "website-portfolio-ilyass"
+  key    = "index.html"
+  source = "../frontend/index.html"
+  content_type = "text/html"
 }
+
+resource "aws_s3_object" "styles.css" {
+  bucket = "website-portfolio-ilyass"
+  key    = "styles.css"
+  source = "../frontend/styles.css"
+  content_type = "text/html"
+}
+
+resource "aws_s3_object" "app.js" {
+  bucket = "website-portfolio-ilyass"
+  key    = "app.js"
+  source = "../frontend/app.js"
+  content_type = "application/javascript"
+} 
 
 resource "aws_s3_bucket_website_configuration" "hosting" {
   bucket = aws_s3_bucket.website.id
@@ -164,6 +176,7 @@ EOF
         Name = "Servidor Nginx" #Nombre de la instancia EC2
     } 
 }
+
 
 
 
