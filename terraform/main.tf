@@ -123,7 +123,30 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     cloudfront_default_certificate = true
   }
 }
+resource "aws_s3_bucket_policy" "cdn_policy" {
+  bucket = aws_s3_bucket.website.id
 
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "AllowCloudFrontServicePrincipalReadOnly"
+        Effect    = "Allow"
+        Principal = {
+          Service = "cloudfront.amazonaws.com"
+        }
+        Action   = "s3:GetObject"
+        # Importante: El /* al final para que pueda leer todos los archivos
+        Resource = "${aws_s3_bucket.website.arn}/*"
+        Condition = {
+          StringEquals = {
+            "AWS:SourceArn" = aws_cloudfront_distribution.s3_distribution.arn
+          }
+        }
+      }
+    ]
+  })
+}
 resource "aws_instance" "servidor_web" {
     ami = "ami-07ff62358b87c7116" #La imagen id es dependiendo de la region, cada region tiene sus ID's
     instance_type = "t2.micro"
@@ -141,6 +164,7 @@ EOF
         Name = "Servidor Nginx" #Nombre de la instancia EC2
     } 
 }
+
 
 
 
