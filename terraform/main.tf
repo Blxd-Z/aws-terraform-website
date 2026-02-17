@@ -42,6 +42,13 @@ resource "aws_security_group" "sg_allow_http" {
         protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
+
+    ingress {
+        from_port = 22
+        to_port = 22
+        protocol = "tcp"
+        cidr_blocks = [var.my_ip]
+    }
     egress {
         from_port = 0
         to_port = 0
@@ -70,6 +77,7 @@ EOF
         Name = "Servidor Nginx" #Nombre de la instancia EC2
     } 
 }
+
 
 
 
