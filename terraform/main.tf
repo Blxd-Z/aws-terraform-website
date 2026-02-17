@@ -78,7 +78,7 @@ resource "aws_s3_object" "styles.css" {
   bucket = "website-portfolio-ilyass"
   key    = "styles.css"
   source = "../frontend/styles.css"
-  content_type = "text/html"
+  content_type = "text/css"
 }
 
 resource "aws_s3_object" "app.js" {
@@ -176,6 +176,7 @@ EOF
         Name = "Servidor Nginx" #Nombre de la instancia EC2
     } 
 }
+
 
 
 
