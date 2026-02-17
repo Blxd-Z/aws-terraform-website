@@ -1,5 +1,7 @@
 name: Terraform CI
-
+env:
+  TF_VAR_my_ip: ${{  secrets.TF_VAR_my_ip  }}  
+  
 on:
   push:
       paths:
@@ -8,10 +10,7 @@ on:
 permissions:
   id-token: write
   contents: read
-  
-env:
-  TF_VAR_my_ip: ${{  secrets.TF_VAR_my_ip  }}  
-  
+   
 jobs:
 
   CI:
