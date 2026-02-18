@@ -1,13 +1,27 @@
 ## Sobre el proyecto
 
-Este proyecto provisiona una infraestructura en AWS, simulando un entorno productivo mediante Terraform. Incluye una VPC, public subnet, una instancia EC2 a modo de laboratorio con nginx y SSH configurado, web estatica
-utilizando un bucket de S3 y CloudFront para distribuir la pagina de manera segura. La infraestructura viene soportada por un backend de terraform remoto, utilizando S3 y DynamoDB.
+Este proyecto provisiona una infraestructura en AWS simulando un entorno productivo utilizando Terraform como herramienta de Infrastructure as Code.
 
-El despliegue de la infraestructura esta automatizado mediante GitHub Actions (CI/CD), usando autentificacion OIDC (sin utilizar credenciales de AWS).
+La arquitectura incluye una VPC personalizada, subnet pública, una instancia EC2 con Nginx desplegado automáticamente mediante user_data, un sitio web estático en S3 y una distribución CloudFront protegida mediante Origin Access Control (OAC).
+
+El estado remoto de Terraform se gestiona en S3 con bloqueo en DynamoDB para evitar conflictos concurrentes.
+
+El despliegue está automatizado mediante GitHub Actions usando autenticación OIDC, eliminando la necesidad de credenciales AWS estáticas
 
 ## Requisitos
 
 ## Despliegue
+
+1. Ejecutar el workflow de bootstrap para crear:
+   - S3 bucket para estado remoto
+   - DynamoDB table para locking
+
+2. Crear un secret en GitHub:
+   TF_VAR_my_ip = <TU_IP_PUBLICA>/32
+
+3. Ejecutar:
+   terraform init
+   terraform apply
 
 ## Tecnologias utilizadas
 
