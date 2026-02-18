@@ -87,7 +87,15 @@ resource "aws_s3_object" "app_js" {
   key    = "app.js"
   source = "../frontend/app.js"
   content_type = "application/javascript"
-} 
+}
+
+resource "aws_s3_object" "curriculum_pdf" {
+  bucket = aws_s3_bucket.website.id
+  key = "cv.pdf"
+  source = "../frontend/cv.pdf"
+  content_type = "application/pdf"
+  etag  = filemd5("../frontend/cv.pdf")
+}
 
 resource "aws_cloudfront_origin_access_control" "default" {
   name                              = "s3-portfolio-oac"
@@ -170,6 +178,7 @@ EOF
         Name = "Servidor Nginx" #Nombre de la instancia EC2
     } 
 }
+
 
 
 
