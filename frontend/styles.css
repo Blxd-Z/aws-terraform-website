@@ -52,7 +52,7 @@ html {
 
 @media (max-width: 768px) {
   .nav-links {
-    display: none; /* Podrías añadir un menú hamburguesa luego */
+    display: none;
   }
   .navbar {
     justify-content: center;
