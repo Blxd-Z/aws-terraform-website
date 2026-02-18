@@ -6,7 +6,7 @@ La arquitectura incluye una VPC personalizada, subnet pública, una instancia EC
 
 El estado remoto de Terraform se gestiona en S3 con bloqueo en DynamoDB para evitar conflictos concurrentes.
 
-El despliegue está automatizado mediante GitHub Actions usando autenticación OIDC, eliminando la necesidad de credenciales AWS estáticas
+El despliegue está automatizado mediante GitHub Actions usando autenticación OIDC, eliminando la necesidad de credenciales AWS estáticas.
 
 ## Requisitos
 
