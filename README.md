@@ -20,9 +20,10 @@ El despliegue está automatizado mediante GitHub Actions usando autenticación O
    TF_VAR_my_ip = <TU_IP_PUBLICA>/32
 
 3. Ejecutar:
+ ```hcl
    terraform init
    terraform apply
-
+```
 ## Tecnologias utilizadas
 
 * Terraform >= 1.14
